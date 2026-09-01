@@ -13,10 +13,19 @@ jobs:
       pull-requests: write
       contents: write
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: PR Agent action step
         uses: the-pr-agent/pr-agent@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          # Force comparison against target PR base branch
+          PR_REQUESTER.TARGET_BRANCH: ${{ github.base_ref }}
+
           config.model: "gemini/gemini-2.5-flash-lite"
           config.custom_model_max_tokens: 32000
           config.fallback_models: '["gemini/gemini-2.5-flash-lite", "gemini/gemini-2.5-flash", "anthropic/claude-haiku-4-5-20251001"]'
