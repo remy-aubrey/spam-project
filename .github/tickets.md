@@ -458,43 +458,74 @@ Write a front end test to test the number of obstacles. This will entail simulat
 
 ---
 
-### STRETCH: Fan Picture Gallery - Upload Your SPAM Photos #20
+### STRETCH: Fan Picture Gallery - Backend (API + Storage) #20
 
 **Description:**
-Create a fan picture gallery feature where users can upload their own SPAM-related photos to share with the community.
+Build the backend for a fan picture gallery feature, so users can eventually upload their own SPAM-related photos to share with the community. This ticket covers the database, storage, and API only — the gallery page and upload form are a separate ticket (see below).
 
 **Requirements:**
 
-1. **Backend:**
-   - Create a database table to store image metadata (user_id, image_url, caption, upload_date)
-   - Create API endpoint `POST /api/v1/gallery` (authenticated) to handle image uploads
-   - Create API endpoint `GET /api/v1/gallery` to retrieve all gallery images
-   - Implement image upload handling (consider using a service like Cloudinary or storing in public folder)
+- Create a database table to store image metadata (user_id, image_url, caption, upload_date)
+- Create API endpoint `POST /api/v1/gallery` (authenticated) to handle image uploads
+- Create API endpoint `GET /api/v1/gallery` to retrieve all gallery images
+- Implement image upload handling — pick **one** storage approach:
+  - **Cloudinary** — popular free tier, widely used in tutorials, built-in image transforms
+  - **Supabase Storage** — generous free tier, S3-compatible, handy if you're already using Supabase elsewhere
+- Only image files should be accepted (jpg, png, gif) and file size should be limited (e.g. max 5MB) — enforce this server-side regardless of which storage option you pick
 
-2. **Frontend:**
-   - Create a Gallery page component
-   - Build an upload form with image file input and optional caption
-   - Display all uploaded images in a responsive grid layout
-   - Show uploader name and date with each image
-   - Add image preview before upload
-
-3. **Testing:**
-   - Write backend integration test for image upload endpoint
-   - Write frontend test to verify gallery page renders images correctly
-   - Test file upload validation (file size, file type)
+**Testing:**
+- Write backend integration test(s) for the image upload endpoint
+- Test file upload validation (file size, file type)
 
 **Acceptance Criteria:**
-- Authenticated users can upload SPAM-related photos
-- Uploaded photos appear in the community gallery
-- Each photo displays who uploaded it and when
-- Only image files are accepted (jpg, png, gif)
-- File size is limited (e.g., max 5MB)
+- Authenticated users can POST an image + optional caption and it's stored
+- `GET /api/v1/gallery` returns all uploaded images with their metadata
+- Only image files are accepted (jpg, png, gif) — non-image uploads are rejected
+- Oversized files are rejected (e.g. max 5MB)
 
-**Labels:** frontend, backend, auth0
+This ticket is connected to the frontend gallery ticket below — after you finish this ticket, please move on to that one.
+
+**Labels:** backend, auth0
 
 **Priority:** P3
 
-**Size:** L
+**Size:** M
+
+---
+
+### STRETCH: Fan Picture Gallery - Frontend (Gallery Page + Upload Form) #21
+
+**Description:**
+Build the frontend for the fan picture gallery — a page where users can browse uploaded SPAM photos and upload their own. This depends on the backend gallery ticket (#20) already being done.
+
+**Requirements:**
+
+- Create a Gallery page component and register it at the `/gallery` route
+- Build an upload form with image file input and optional caption
+- Add image preview before upload
+- Display all uploaded images in a responsive grid layout
+- Show uploader name and date with each image
+- Validate file type and size client-side too (jpg/png/gif, max 5MB) for fast feedback, in addition to the server-side checks from #20
+
+**Testing:**
+- Write frontend test(s) to verify the gallery page renders images correctly
+- Test file upload validation (file size, file type) on the frontend
+
+**Acceptance Criteria:**
+- Authenticated users can upload SPAM-related photos from the Gallery page
+- Uploaded photos appear in the community gallery
+- Each photo displays who uploaded it and when
+- Only image files are accepted (jpg, png, gif) — user gets a clear error otherwise
+- File size is limited (e.g., max 5MB) — user gets a clear error otherwise
+
+Depends on:
+#20
+
+**Labels:** frontend, auth0
+
+**Priority:** P3
+
+**Size:** M
 
 ---
 
@@ -642,9 +673,9 @@ Depends on:
 ### Add Gallery link to nav bar #40
 
 **Description:**
-Once #20 (Fan Picture Gallery) has been implemented, the `/gallery` route won't be reachable from the site navigation — `Header.tsx`'s `menuItems` array doesn't include it, so users would only be able to find the gallery page by typing the URL directly.
+Once #21 (Fan Picture Gallery - Frontend) has been implemented, the `/gallery` route won't be reachable from the site navigation — `Header.tsx`'s `menuItems` array doesn't include it, so users would only be able to find the gallery page by typing the URL directly.
 
-NOTE: This ticket depends on #20 being done first — there's no `/gallery` route to link to until then.
+NOTE: This ticket depends on #21 being done first — there's no `/gallery` route to link to until then.
 
 **Acceptance Criteria:**
 - "Gallery" link appears in both desktop and mobile nav
@@ -664,7 +695,7 @@ NOTE: This ticket depends on #20 being done first — there's no `/gallery` rout
   Add a `{ title: 'Gallery', link: './gallery' }` entry. This applies to both the desktop nav (`md:flex` list) and the mobile menu, since both render from the same `menuItems` array.
 
 Depends on:
-#20
+#21
 
 **Labels:** frontend
 
