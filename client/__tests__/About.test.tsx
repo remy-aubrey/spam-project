@@ -12,9 +12,7 @@ import { mockAboutText, mockAboutImages } from './fixtures/mockData'
 describe('About.tsx', () => {
   beforeEach(() => {
     // Mock the API responses for About page
-    nock('http://localhost')
-      .get('/api/v1/about/text')
-      .reply(200, mockAboutText)
+    nock('http://localhost').get('/api/v1/about/text').reply(200, mockAboutText)
     nock('http://localhost')
       .get('/api/v1/about/images')
       .reply(200, mockAboutImages)
@@ -31,4 +29,15 @@ describe('About.tsx', () => {
     expect(heading.textContent).toBe('The history of SPAM')
   })
   // TODO: add another test to see if you see the real data from the database rendered on the page
+  it('About heading has the expected Tailwind styling', async () => {
+    // ARRANGE
+    const { ...screen } = renderApp('/about')
+    const heading = screen.getByRole('heading', { level: 1 })
+    // ACT
+    // N/A
+    // ASSERT
+    expect(heading).toHaveClass('text-heading-lg')
+    expect(heading).toHaveClass('font-heading-bold')
+    expect(heading).toHaveClass('text-spamBlue')
+  })
 })
