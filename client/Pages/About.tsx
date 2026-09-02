@@ -61,8 +61,10 @@ function About() {
     <>
       <div className="flex flex-col items-center justify-center p-8">
         <div className="flex flex-col gap-8 md:flex-row">
-          <section>
-            <article>
+          <section
+            className="w-full" // full-width
+          >
+            <article className="space-y-6">
               <h1>The history of SPAM</h1>
               {spamHistory.map((section, idx) => (
                 <section key={idx}>
@@ -72,7 +74,7 @@ function About() {
               ))}
             </article>
           </section>
-          <section>
+          <section className="grid grid-cols-1 gap-8 p-6 md:w-1/3">
             {images.map((image, idx) => (
               <div key={idx}>
                 <img src={image.link} alt={image.alt} />
