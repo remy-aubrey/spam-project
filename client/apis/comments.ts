@@ -11,7 +11,10 @@ export async function getAllCommentsBySpamId(spamId: number) {
     .then((res) => {
       return res.body.comments as CommentData[]
     })
-    .catch(logError)
+    .catch((error) => {
+      logError(error)
+      throw Error('Failed to fetch comments')
+    })
 }
 
 export async function addComment(commentObj: AddComment) {
@@ -22,5 +25,8 @@ export async function addComment(commentObj: AddComment) {
     .set('Authorization', `Bearer ${token}`)
     .send({ comment: comment, spamId: spamId })
     .then((res) => res.body as CommentData)
-    .catch(logError)
+    .catch((error) => {
+      logError(error)
+      throw Error('Failed to add comment')
+    })
 }
