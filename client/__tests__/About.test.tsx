@@ -28,7 +28,24 @@ describe('About.tsx', () => {
     // ASSERT
     expect(heading.textContent).toBe('The history of SPAM')
   })
-  // TODO: add another test to see if you see the real data from the database rendered on the page
+
+  it('About data should render correctly from database', async () => {
+    //ARRANGE
+    const { ...screen } = renderApp('/about')
+    const heading = await screen.findByRole('heading', {
+      level: 2,
+      name: /The Origins/i,
+    })
+
+    // ACT
+    // Not necessary in this test
+
+    // ASSERT
+    expect(heading).toBeInTheDocument()
+    expect(heading.textContent).toMatch(/The Origins/i)
+    expect(screen.getByText(mockAboutText[0].body)).toBeInTheDocument()
+  })
+
   it('About heading has the expected Tailwind styling', async () => {
     // ARRANGE
     const { ...screen } = renderApp('/about')
