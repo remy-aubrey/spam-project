@@ -33,7 +33,7 @@ function WhackASpam() {
   }, [timer])
 
   function chooseRandomCell() {
-    let randomCell = getRandomNumber(0, 16)
+    const randomCell = getRandomNumber(0, 16)
     setSelectedCell(randomCell)
   }
 
