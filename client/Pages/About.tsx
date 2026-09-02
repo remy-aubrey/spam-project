@@ -15,8 +15,13 @@ function About() {
       return (
         <>
           {data.map((section) => (
-            <section key={section.title}>
-              <h2>{section.title}</h2>
+            <section
+              className="rounded-md border-2 border-spamBlue p-8"
+              key={section.title}
+            >
+              <h2 className="pb-4 font-heading text-heading-md font-heading-bold">
+                {section.title}
+              </h2>
               <p>{section.body}</p>
             </section>
           ))}
@@ -36,8 +41,12 @@ function About() {
         <>
           {data.map((image) => (
             <div key={image.alt}>
-              <img src={`/images/${image.link}`} alt={image.alt} />
-              <p>
+              <img
+                className="w-full rounded-md border-2 border-spamBlue"
+                src={`/images/${image.link}`}
+                alt={image.alt}
+              />
+              <p className="w-full">
                 <em>{image.caption}</em>
               </p>
             </div>
@@ -47,20 +56,21 @@ function About() {
   }
 
   return (
-    // TODO: Style this page!
-    <>
-      <div>
-        <section>
-          <article>
-            <h1>The history of SPAM</h1>
+    <div className="flex flex-col items-center justify-center p-8">
+      <div className="flex flex-col gap-8 md:flex-row">
+        <section className="w-full">
+          <article className="space-y-6">
+            <h1 className="pb-4 font-heading text-heading-lg font-heading-bold text-spamBlue">
+              The history of SPAM
+            </h1>
             <AboutText />
           </article>
         </section>
-        <section>
+        <section className="grid grid-cols-1 gap-8 p-6 md:w-1/3">
           <AboutImages />
         </section>
       </div>
-    </>
+    </div>
   )
 }
 
