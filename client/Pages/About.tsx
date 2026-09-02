@@ -57,43 +57,44 @@ function About() {
   ]
 
   return (
-    // TODO: Style this page!
-    <>
-      <div className="flex flex-col items-center justify-center p-8">
-        <div className="flex flex-col gap-8 md:flex-row">
-          <section
-            className="w-full" // full-width
-          >
-            <article className="space-y-6">
-              <h1>The history of SPAM</h1>
-              {spamHistory.map((section, idx) => (
-                <section
-                  className=" rounded-md border-2 border-spamBlue p-8"
-                  key={idx}
-                >
-                  <h2>{section.title}</h2>
-                  <p>{section.body}</p>
-                </section>
-              ))}
-            </article>
-          </section>
-          <section className="grid grid-cols-1 gap-8 p-6 md:w-1/3">
-            {images.map((image, idx) => (
-              <div key={idx}>
-                <img
-                  className="rounded-md border-2 border-spamBlue"
-                  src={image.link}
-                  alt={image.alt}
-                />
-                <p>
-                  <em>{image.caption}</em>
-                </p>
-              </div>
+    <div className="flex flex-col items-center justify-center p-8">
+      <div className="flex flex-col gap-8 md:flex-row">
+        <section
+          className="w-full" // full-width
+        >
+          <article className="space-y-6">
+            <h1 className="pb-4 font-heading text-heading-lg font-heading-bold text-spamBlue">
+              The history of SPAM
+            </h1>
+            {spamHistory.map((section, idx) => (
+              <section
+                className=" rounded-md border-2 border-spamBlue p-8"
+                key={idx}
+              >
+                <h2 className="pb-4 font-heading text-heading-md font-heading-bold">
+                  {section.title}
+                </h2>
+                <p>{section.body}</p>
+              </section>
             ))}
-          </section>
-        </div>
+          </article>
+        </section>
+        <section className="grid grid-cols-1 gap-8 p-6 md:w-1/3">
+          {images.map((image, idx) => (
+            <div key={idx}>
+              <img
+                className=" w-full rounded-md border-2 border-spamBlue"
+                src={image.link}
+                alt={image.alt}
+              />
+              <p className="w-full">
+                <em>{image.caption}</em>
+              </p>
+            </div>
+          ))}
+        </section>
       </div>
-    </>
+    </div>
   )
 }
 
