@@ -12,9 +12,7 @@ import { mockAboutText, mockAboutImages } from './fixtures/mockData'
 describe('About.tsx', () => {
   beforeEach(() => {
     // Mock the API responses for About page
-    nock('http://localhost')
-      .get('/api/v1/about/text')
-      .reply(200, mockAboutText)
+    nock('http://localhost').get('/api/v1/about/text').reply(200, mockAboutText)
     nock('http://localhost')
       .get('/api/v1/about/images')
       .reply(200, mockAboutImages)
@@ -30,5 +28,19 @@ describe('About.tsx', () => {
     // ASSERT
     expect(heading.textContent).toBe('The history of SPAM')
   })
-  // TODO: add another test to see if you see the real data from the database rendered on the page
+
+  it('About data should render correctly from database', async () => {
+    //ARRANGE
+    const { ...screen } = renderApp('/about')
+    const heading = await screen.findByRole('heading', {
+      level: 2,
+      name: /The Origins/i,
+    })
+
+    // ACT
+    // Not necessary in this test
+
+    // ASSERT
+    expect(heading.textContent).toMatch(/The Origins/i)
+  })
 })
