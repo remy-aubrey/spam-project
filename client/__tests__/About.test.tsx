@@ -41,6 +41,8 @@ describe('About.tsx', () => {
     // Not necessary in this test
 
     // ASSERT
+    expect(heading).toBeInTheDocument()
     expect(heading.textContent).toMatch(/The Origins/i)
+    expect(screen.getByText(mockAboutText[0].body)).toBeInTheDocument()
   })
 })
