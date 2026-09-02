@@ -45,4 +45,16 @@ describe('About.tsx', () => {
     expect(heading.textContent).toMatch(/The Origins/i)
     expect(screen.getByText(mockAboutText[0].body)).toBeInTheDocument()
   })
+
+  it('About heading has the expected Tailwind styling', async () => {
+    // ARRANGE
+    const { ...screen } = renderApp('/about')
+    const heading = screen.getByRole('heading', { level: 1 })
+    // ACT
+    // N/A
+    // ASSERT
+    expect(heading).toHaveClass('text-heading-lg')
+    expect(heading).toHaveClass('font-heading-bold')
+    expect(heading).toHaveClass('text-spamBlue')
+  })
 })
