@@ -67,7 +67,10 @@ function About() {
             <article className="space-y-6">
               <h1>The history of SPAM</h1>
               {spamHistory.map((section, idx) => (
-                <section key={idx}>
+                <section
+                  className=" rounded-md border-2 border-spamBlue p-8"
+                  key={idx}
+                >
                   <h2>{section.title}</h2>
                   <p>{section.body}</p>
                 </section>
@@ -77,7 +80,11 @@ function About() {
           <section className="grid grid-cols-1 gap-8 p-6 md:w-1/3">
             {images.map((image, idx) => (
               <div key={idx}>
-                <img src={image.link} alt={image.alt} />
+                <img
+                  className="rounded-md border-2 border-spamBlue"
+                  src={image.link}
+                  alt={image.alt}
+                />
                 <p>
                   <em>{image.caption}</em>
                 </p>
