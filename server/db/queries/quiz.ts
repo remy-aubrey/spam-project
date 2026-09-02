@@ -42,7 +42,9 @@ export async function getAllQuestionsAndOptions(db = connection) {
 // TODO:
 // Create a function to get quiz results by category
 export async function getQuizResultByCategory(category: string, db = connection) {
-  return db(results)
+  const result = await db('results')
   .where({ category })
-  .first
+  .first();
+  return result;
 }
+
