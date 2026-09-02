@@ -1,28 +1,21 @@
-import { Link } from 'react-router-dom'
 import { useAboutText } from '../hooks/useAboutText'
-import Button from '../components/UI/Button'
+
 import { useAboutImages } from '../hooks/useAboutImages'
+import { ErrorFallback } from '../components/ErrorFallback'
 
 function About() {
   //grab text data from the database and render it on the page
   function AboutText() {
     const { data, isError } = useAboutText()
     if (isError) {
-      return (
-        <div className="flex flex-col items-center justify-center p-8">
-          <p>Something went wrong</p>
-          <Link to="/">
-            <Button>Home</Button>
-          </Link>
-        </div>
-      )
+      return <ErrorFallback />
     }
 
     if (data)
       return (
         <>
-          {data.map((section, idx) => (
-            <section key={idx}>
+          {data.map((section) => (
+            <section key={section.title}>
               <h2>{section.title}</h2>
               <p>{section.body}</p>
             </section>
@@ -35,21 +28,14 @@ function About() {
   function AboutImages() {
     const { data, isError } = useAboutImages()
     if (isError) {
-      return (
-        <div className="flex flex-col items-center justify-center p-8">
-          <p>Something went wrong</p>
-          <Link to="/">
-            <Button>Home</Button>
-          </Link>
-        </div>
-      )
+      return <ErrorFallback />
     }
 
     if (data)
       return (
         <>
-          {data.map((image, idx) => (
-            <div key={idx}>
+          {data.map((image) => (
+            <div key={image.alt}>
               <img src={`/images/${image.link}`} alt={image.alt} />
               <p>
                 <em>{image.caption}</em>
