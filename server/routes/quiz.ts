@@ -20,6 +20,24 @@ router.get('/', async (req, res) => {
 // handle errors such as a non existent category being passed
 // in as a param.
 // GET: /api/v1/quiz/:category
-router.get('/:category', async (req, res) => {})
+router.get('/:category', async (req, res) => {
+ 
+  try {
+  const { category } = req.params
+  const result = await db.getQuizResultByCategory(category)
+
+    if (!result) {
+      res.status(404).json({ message: 'Quiz results not found' })
+      return
+    }
+
+    res.json(result)
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ message: 'No result'})
+    }
+})
+
+
 
 export default router
