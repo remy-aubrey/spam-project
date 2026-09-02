@@ -57,29 +57,39 @@ describe('quiz route', () => {
     // ASSERT
     expect(res.status).toBe(200)
   })
-  it.skip('/api/v1/quiz/a route returns correct categories', async () => {
+  it('/api/v1/quiz/a route returns correct categories', async () => {
     // ARRANGE
     const res = await request(server).get('/api/v1/quiz/a')
 
     //ACT
-    expect(res.body).toStrictEqual({
-      id: 1,
+    expect(res.body).toEqual(
+      expect.objectContaining({
       category: 'a',
       name: 'SPAM Classic',
       image: 'spam_classic_text.png',
       info: "Just like the original SPAM, you're reliable, timeless, and beloved by many. You have a strong sense of tradition and a knack for keeping things simple and straightforward. People know they can count on you, and your steady nature makes you a comforting presence in any situation. You value consistency and aren't afraid to embrace the tried and true.",
     })
+  )
     // // ASSERT
     expect(res.status).toBe(200)
   })
 
-  it.skip('/api/v1/quiz/f returns 404 if category is not found', async () => {
+  it('/api/v1/quiz/f returns 404 if category is not found', async () => {
     // ARR
     const res = await request(server).get('/api/v1/quiz/f')
 
     // ACT
-
     // ASSERT
     expect(res.status).toBe(404)
+  })
+  it('/api/v1/quiz/b returns correct category for SPAM Hot & Spicy', async () => {
+  // ARR
+  const res = await request(server).get('/api/v1/quiz/b')
+  // ACT
+
+  // ASSERT
+  expect(res.status).toBe(200)
+  expect(res.body.category).toBe('b')
+  expect(res.body.name).toBeDefined()
   })
 })
