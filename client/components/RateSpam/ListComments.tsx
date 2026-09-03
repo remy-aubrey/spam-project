@@ -8,6 +8,7 @@ function ListComments() {
   return (
     <>
       <h4>Comments</h4>
+      {comments?.length === 0 && <p>No comments yet!</p>}
       <ul>
         {comments?.map((comment) => (
           <li key={comment.id}>
