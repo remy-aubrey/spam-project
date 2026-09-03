@@ -76,3 +76,4 @@ describe('<Quiz>', async () => {
     expect(errorScope.isDone()).toBe(true)
   })
 })
+
