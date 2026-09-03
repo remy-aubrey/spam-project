@@ -9,18 +9,24 @@ export default function AddComment() {
   const { id } = useParams<{ id: string }>()
   const { getAccessTokenSilently } = useAuth0()
 
-  const { mutate } = useAddComment(Number(id))
+  const { mutate, isPending, isError } = useAddComment(Number(id))
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setComment(event.target.value)
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const token = await getAccessTokenSilently()
-    if (id) {
-      mutate({ comment, spamId: Number(id), token })
-      setComment('')
+
+    const trimmedComment = comment.trim()
+    if (!trimmedComment || !id) {
+      return
     }
+
+    const token = await getAccessTokenSilently()
+    mutate(
+      { comment: trimmedComment, spamId: Number(id), token },
+      { onSuccess: () => setComment('') },
+    )
   }
 
   return (
@@ -35,13 +41,21 @@ export default function AddComment() {
           id="add-comment"
           value={comment}
           onChange={handleChange}
+          placeholder="Add a comment"
+          disabled={isPending}
         ></input>
         <button
-          className="ml-2 rounded bg-spamBlue px-4 py-2 text-spamYellow hover:bg-spamYellow hover:text-spamBlue"
+          className="ml-2 rounded bg-spamBlue px-4 py-2 text-spamYellow hover:bg-spamYellow hover:text-spamBlue disabled:cursor-not-allowed disabled:opacity-50"
           type="submit"
+          disabled={isPending || !comment.trim()}
         >
-          Submit
+          {isPending ? 'Saving...' : 'Submit'}
         </button>
+        {isError && (
+          <p role="alert" className="mt-2 text-sm text-red-600">
+            Failed to save comment. Please try again.
+          </p>
+        )}
       </form>
     </>
   )
