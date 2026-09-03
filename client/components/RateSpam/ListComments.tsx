@@ -17,7 +17,7 @@ function ListComments() {
             <p>{comment.comment_text}</p>
             <p className="text-sm text-gray-500">
               Created on:{' '}
-              {new Date(comment.created_date * 1000).toLocaleDateString()}
+              {new Date(comment.created_date * 1000).toLocaleString()}
             </p>
             <br />
           </li>
