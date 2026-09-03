@@ -31,7 +31,7 @@ function Games() {
           ))}
         </nav>
 
-        <main className="inline-flex w-full max-w-2xl flex-col items-center justify-center rounded-lg border border-spamBlue p-4 sm:p-6">
+        <main className="flex w-full max-w-2xl flex-col items-center justify-center rounded-lg border border-spamBlue p-4 sm:p-6">
           {!activeGame && (
             <p className="text-body-md">Pick a game above to get started!</p>
           )}
