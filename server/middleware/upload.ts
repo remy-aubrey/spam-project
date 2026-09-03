@@ -1,4 +1,5 @@
 import multer from 'multer'
+//multer parses incoming file uploads for the gallery before the route function runs
 
 const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif']
 

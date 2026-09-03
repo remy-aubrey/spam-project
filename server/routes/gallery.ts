@@ -1,5 +1,5 @@
-import { Router } from 'express'
-import { upload } from '../upload'
+import { ErrorRequestHandler, Router } from 'express'
+import { upload } from '../middleware/upload.ts'
 import { uploadImageBuffer } from '../cloudinary'
 import { getAllGalleryImages, createGalleryImage } from '../db/queries/gallery'
 import checkJwt from '../auth0'
@@ -19,8 +19,8 @@ router.get('/', async (req, res) => {
 
 router.post(
   '/',
-  checkJwt,
-  upload.single('image'),
+  checkJwt, //check if authorized first
+  upload.single('image'), //parse file (multer requires it to ba named 'image')
   async (req: JwtRequest, res) => {
     const userId = req.auth?.sub
 
@@ -34,7 +34,9 @@ router.post(
     }
 
     try {
+      //send file and get url back from cloudinary
       const imageUrl = await uploadImageBuffer(req.file.buffer)
+      //create gallery image from url
       const [newImage] = await createGalleryImage(
         userId,
         imageUrl,
@@ -47,5 +49,15 @@ router.post(
     }
   },
 )
+
+//catches errors that happen inside multer
+const galleryErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
+  if (err) {
+    return res.status(400).json({ error: err.message })
+  }
+  next()
+}
+
+router.use(galleryErrorHandler)
 
 export default router
