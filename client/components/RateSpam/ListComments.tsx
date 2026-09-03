@@ -13,7 +13,10 @@ function ListComments() {
         {comments?.map((comment) => (
           <li key={comment.id}>
             <p>Comment text: {comment.comment_text}</p>
-            <p>Created on: {new Date(comment.created_date).toLocaleString()}</p>
+            <p>
+              Created on:{' '}
+              {new Date(comment.created_date * 1000).toLocaleString()}
+            </p>
             <br />
           </li>
         ))}
