@@ -145,7 +145,7 @@ describe('<AddComment>', () => {
     await user.click(submitButton)
 
     // ASSERT
-    const error = await screen.findByText(/something went wrong/i)
+    const error = await screen.findByText(/failed to save comment/i)
 
     expect(error).toBeVisible()
     expect(addScope.isDone()).toBe(true)
