@@ -51,10 +51,32 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
 
 // TODO:
 // PATCH `/api/v1/comments/:id`
-router.patch('/:id', async (req, res) => {})
+router.patch('/:id', async () => {})
 
 // TODO:
 // DELETE: /api/v1/comments/:id
-router.delete('/:id', async (req, res) => {})
+router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
+  const commentId = Number(req.params.id)
+  const userId = req.auth?.sub
+
+  if (!userId) {
+    return res.status(401).json({ message: 'Unauthorized' })
+  }
+
+  try {
+    const deletedCount = await db.deleteCommentIfOwner(commentId, userId)
+
+    if (deletedCount === 0) {
+      return res
+        .status(403)
+        .json({ message: 'Forbidden: You can only delete your own comment' })
+    }
+
+    return res.sendStatus(200)
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Failed to delete comment' })
+  }
+})
 
 export default router
