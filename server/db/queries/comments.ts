@@ -24,6 +24,12 @@ export async function createComment(
     .returning('*')
 }
 
-// TODO: Update Comment
+export async function deleteCommentIfOwner(
+  commentId: number,
+  userId: string,
+  db = connection,
+) {
+  return db('comments').where({ id: commentId, user_id: userId }).del()
+}
 
-// TODO: Delete Comment
+// TODO: Update Comment
