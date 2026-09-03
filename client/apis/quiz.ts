@@ -5,6 +5,7 @@ import { QuizQuestions, QuizResult } from '../../models/spam'
 import { logError } from './api-utils'
 
 const rootUrl = '/api/v1'
+
 export async function getAllQuestions() {
   return request
     .get(`${rootUrl}/quiz`)
@@ -15,4 +16,9 @@ export async function getAllQuestions() {
 }
 
 // TODO: Write a request to get the quiz result data by category from the backend
-export async function getQuizResult(category: string) {}
+export async function getQuizResult(category: string): Promise<QuizResult> {
+  return request
+    .get(`${rootUrl}/quiz/${category}`)
+    .then((res) => res.body)
+    .catch(logError)
+}
