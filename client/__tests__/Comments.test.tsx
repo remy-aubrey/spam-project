@@ -121,4 +121,34 @@ describe('<AddComment>', () => {
     expect(newComment).toBeVisible()
     expect(addScope.isDone()).toBe(true)
   })
+
+  it('should show an error message when adding a comment fails', async () => {
+    // ARRANGE
+    nock('http://localhost')
+      .get('/api/v1/spams/2')
+      .reply(200, { spam: TEST_SPAM_DATA })
+
+    nock('http://localhost')
+      .get('/api/v1/comments/2')
+      .reply(200, { comments: TEST_COMMENTS_DATA })
+
+    const addScope = nock('http://localhost')
+      .post('/api/v1/comments/', { comment: newCommentText, spamId: 2 })
+      .reply(500)
+
+    // ACT
+    const { user, ...screen } = renderApp('/rate-spam/2/')
+
+    const commentInput = await screen.findByLabelText(/add a comment/i)
+    await user.type(commentInput, newCommentText)
+
+    const submitButton = screen.getByRole('button', { name: /submit/i })
+    await user.click(submitButton)
+
+    // ASSERT
+    const error = await screen.findByText(/something went wrong/i)
+
+    expect(error).toBeVisible()
+    expect(addScope.isDone()).toBe(true)
+  })
 })
