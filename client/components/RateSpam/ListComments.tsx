@@ -2,8 +2,8 @@ import { useParams } from 'react-router-dom'
 import { useComments } from '../../hooks/useComments'
 
 function ListComments() {
-  const { spamId } = useParams<{ spamId: string }>()
-  const { data: comments } = useComments(Number(spamId))
+  const { id } = useParams<{ id: string }>()
+  const { data: comments } = useComments(Number(id))
 
   return (
     <>
