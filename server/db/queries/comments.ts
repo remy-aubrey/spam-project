@@ -19,11 +19,17 @@ export async function createComment(
       user_id: userId,
       spam_id: spamId,
       comment_text: comment,
-      created_date: Date.now(),
+      created_date: Math.floor(Date.now() / 1000),
     })
     .returning('*')
 }
 
-// TODO: Update Comment
+export async function deleteCommentIfOwner(
+  commentId: number,
+  userId: string,
+  db = connection,
+) {
+  return db('comments').where({ id: commentId, user_id: userId }).del()
+}
 
-// TODO: Delete Comment
+// TODO: Update Comment
