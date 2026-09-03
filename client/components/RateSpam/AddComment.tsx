@@ -25,7 +25,9 @@ export default function AddComment() {
 
   return (
     <>
-      <div>Add Comment</div>
+      <div className="py-2 text-body-md font-bold text-spamBlue">
+        Add Comment
+      </div>
       <form onSubmit={handleSubmit}>
         <input
           className="rounded border  border-spamBlue p-2 text-sm text-spamBlue focus:outline-none focus:ring-2 focus:ring-spamBlue"
