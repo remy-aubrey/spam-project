@@ -1,9 +1,13 @@
 // @vitest-environment jsdom
-
 import { renderApp } from '../test-setup.tsx'
 import { describe, it, expect, beforeAll, vi, beforeEach } from 'vitest'
 import nock from 'nock'
 import { useAuth0 } from '@auth0/auth0-react'
+
+vi.mock('@auth0/auth0-react')
+
+const ACCESS_TOKEN = 'mock-access-token'
+const newCommentText = 'This one is my new favourite!'
 
 const TEST_SPAM_DATA = {
   id: 2,
@@ -29,6 +33,22 @@ const TEST_COMMENTS_DATA = [
     created_date: 1625767600,
   },
 ]
+
+beforeAll(() => {
+  nock.disableNetConnect()
+
+  vi.spyOn(console, 'error').mockImplementation(() => {})
+})
+
+beforeEach(() => {
+  vi.mocked(useAuth0).mockReturnValue({
+    isAuthenticated: true,
+    getAccessTokenSilently: vi.fn().mockResolvedValue(ACCESS_TOKEN),
+    loginWithRedirect: vi.fn(),
+    logout: vi.fn(),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } as any)
+})
 
 describe('<ListComments>', async () => {
   it('should render the correct comments for spamId 2', async () => {
@@ -57,27 +77,6 @@ describe('<ListComments>', async () => {
     expect(spamScope.isDone()).toBe(true)
     expect(commentsScope.isDone()).toBe(true)
   })
-})
-
-vi.mock('@auth0/auth0-react')
-
-const ACCESS_TOKEN = 'mock-access-token'
-const newCommentText = 'This one is my new favourite!'
-
-beforeAll(() => {
-  nock.disableNetConnect()
-
-  vi.spyOn(console, 'error').mockImplementation(() => {})
-})
-
-beforeEach(() => {
-  vi.mocked(useAuth0).mockReturnValue({
-    isAuthenticated: true,
-    getAccessTokenSilently: vi.fn().mockResolvedValue(ACCESS_TOKEN),
-    loginWithRedirect: vi.fn(),
-    logout: vi.fn(),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } as any)
 })
 
 describe('<AddComment>', () => {
