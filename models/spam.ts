@@ -90,3 +90,8 @@ export interface AddComment {
   comment: string
   token: string
 }
+
+export interface AddFanImage {
+  image: string
+  token: string
+}
