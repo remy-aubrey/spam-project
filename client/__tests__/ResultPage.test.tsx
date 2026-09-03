@@ -29,6 +29,7 @@ const originalGet = superagent.get.bind(superagent)
 beforeAll(() => {
   nock.disableNetConnect()
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   superagent.get = ((url: string, ...args: any[]) => {
     if (typeof url === 'string' && url.startsWith('/')) {
       return originalGet(`http://localhost${url}`, ...args)
