@@ -8,7 +8,9 @@ function ListComments() {
   return (
     <>
       <h4 className="mb-2 font-bold text-spamBlue">Comments</h4>
-      {comments?.length === 0 && <p>No comments yet!</p>}
+      {comments?.length === 0 && (
+        <p className="rounded border p-3 text-gray-500">No comments yet!</p>
+      )}
       <ul className="space-y-3">
         {comments?.map((comment) => (
           <li key={comment.id} className="rounded border p-3">
