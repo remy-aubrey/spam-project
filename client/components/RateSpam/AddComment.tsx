@@ -4,14 +4,11 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { useParams } from 'react-router-dom'
 
 export default function AddComment() {
-  //  TODO: create form state
   const [comment, setComment] = useState('')
 
-  //  TODO: get id from params
   const { id } = useParams<{ id: string }>()
   const { getAccessTokenSilently } = useAuth0()
 
-  //  TODO: Call custom hook for addMutation
   const { mutate } = useAddComment(Number(id))
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setComment(event.target.value)
@@ -19,10 +16,7 @@ export default function AddComment() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    // TODO: get access token
     const token = await getAccessTokenSilently()
-    // TODO: if the params id exists, call our custom hook mutation
-    // and give it an object with: form data, spamId and token
     if (id) {
       mutate({ comment, spamId: Number(id), token })
       setComment('')
