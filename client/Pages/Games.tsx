@@ -20,11 +20,7 @@ function Games() {
             <Button
               key={game}
               onClick={() => setActiveGame(game)}
-              className={`rounded px-4 py-2 ${
-                activeGame === game
-                  ? 'bg-spamYellow text-spamBlue'
-                  : 'bg-spamBlue text-spamYellow hover:bg-spamYellow hover:text-spamBlue'
-              }`}
+              active={activeGame === game}
             >
               {game}
             </Button>
