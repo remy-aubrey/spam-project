@@ -19,7 +19,7 @@ export async function createComment(
       user_id: userId,
       spam_id: spamId,
       comment_text: comment,
-      created_date: Date.now(),
+      created_date: Math.floor(Date.now() / 1000),
     })
     .returning('*')
 }

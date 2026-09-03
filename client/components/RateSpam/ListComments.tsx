@@ -7,13 +7,18 @@ function ListComments() {
 
   return (
     <>
-      <h4>Comments</h4>
-      {comments?.length === 0 && <p>No comments yet!</p>}
-      <ul>
+      <h4 className="mb-2 font-bold text-spamBlue">Comments</h4>
+      {comments?.length === 0 && (
+        <p className="rounded border p-3 text-gray-500">No comments yet!</p>
+      )}
+      <ul className="space-y-3">
         {comments?.map((comment) => (
-          <li key={comment.id}>
-            <p>Comment text: {comment.comment_text}</p>
-            <p>Created on: {new Date(comment.created_date).toLocaleString()}</p>
+          <li key={comment.id} className="rounded border p-3">
+            <p>{comment.comment_text}</p>
+            <p className="text-sm text-gray-500">
+              Created on:{' '}
+              {new Date(comment.created_date * 1000).toLocaleString()}
+            </p>
             <br />
           </li>
         ))}
