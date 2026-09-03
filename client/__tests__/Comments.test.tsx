@@ -18,6 +18,7 @@ const TEST_COMMENTS_DATA = [
     user_id: 'auth0|xxx456',
     spam_id: 2,
     comment_text: 'A bit too salty for my taste, but still good in a pinch.',
+    // comment_text: 'testing',
     created_date: 1625249200,
   },
   {
