@@ -1,5 +1,6 @@
 import { GalleryImage } from '../../models/spam'
 import { ErrorFallback } from '../components/ErrorFallback'
+import { AddNewImage } from '../components/Forms/AddNewImage'
 import { useGallery } from '../hooks/useGallery'
 
 export default function Gallery() {
@@ -43,7 +44,7 @@ export default function Gallery() {
       <h1 className="mb-8 text-center text-3xl font-extrabold text-spamBlue">
         Fan-Sumitted Gallery Images
       </h1>
-      {/* <AddNewImage/> */}
+      <AddNewImage />
       <GetImages />
     </div>
   )

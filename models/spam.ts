@@ -91,15 +91,16 @@ export interface AddComment {
   token: string
 }
 
-export interface AddFanImage {
-  image: string
-  token: string
-}
-
 export interface GalleryImage {
   id: number
   user_id: string
   image_url: string
   caption: string | null
   upload_date: string
+}
+
+export interface PostFanImageArgs {
+  image: File
+  caption: string
+  token: string
 }
