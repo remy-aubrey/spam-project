@@ -1,17 +1,16 @@
 // FAN GALLERY
 
 import request from 'superagent'
-// import { QuizQuestions, } from '../../models/spam'
 import { logError } from './api-utils'
-import { AddFanImage } from '../../models/spam'
+import { AddFanImage, GalleryImage } from '../../models/spam'
 
 //GET IMAGES FOR FAN GALLERY
 const rootUrl = '/api/v1'
 export async function getFanImages() {
   return request
-    .get(`${rootUrl}/GALLERY`)
+    .get(`${rootUrl}/gallery`)
     .then((res) => {
-      return res.body
+      return res.body.images as GalleryImage[]
     })
     .catch(logError)
 }
