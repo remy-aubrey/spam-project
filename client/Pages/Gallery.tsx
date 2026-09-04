@@ -43,6 +43,7 @@ export default function Gallery() {
       <h1 className="mb-8 text-center text-3xl font-extrabold text-spamBlue">
         Fan-Sumitted Gallery Images
       </h1>
+      {/* <AddNewImage/> */}
       <GetImages />
     </div>
   )

@@ -7,6 +7,7 @@ function Header() {
     { title: 'Games', link: './games' },
     { title: 'Quiz', link: './quiz' },
     { title: 'Rate That Spam!', link: './rate-spam' },
+    { title: 'Fan Gallery', link: './gallery' },
   ]
 
   return (
