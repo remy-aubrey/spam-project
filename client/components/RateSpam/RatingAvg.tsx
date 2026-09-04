@@ -1,19 +1,19 @@
+import { useAvgRatingById } from '../../hooks/useRatings'
+import { Rating } from '@mui/material'
+
 export default function RatingAvg({ spamId }: { spamId: number }) {
-  // TODO: Display the Rating:
-  // using the spamId parameter, call `useAvgRatingById` from
-  // the custom `useRatings` hook to get data.
+  const { data: avgRating, isLoading, isError } = useAvgRatingById(spamId)
+  if (isLoading) return null
 
-  function handleChange(event: any) {
-    // TODO: Adding a Rating:
-    // Some logic to call the useRatings mutation and add a new rating.
-  }
-
+  const handleChange = () => undefined // for add rating
+  const ratingValue = isError || !avgRating ? 0 : Number(avgRating)
   return (
-    <>
-      {/* TODO: Display a Rating: 
-        // use the data from avgRating to display 
-        // the data using a customisable <Rating/> 
-        // from the MUI library */}
-    </>
+    <Rating
+      name={`rating-${spamId}`}
+      value={ratingValue}
+      precision={0.5}
+      onChange={handleChange} // for add rating
+      readOnly
+    />
   )
 }
