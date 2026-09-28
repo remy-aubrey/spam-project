@@ -31,6 +31,7 @@
     "@mui/icons-material": "^5.18.0",
     "@mui/material": "^5.18.0",
     "cloudinary": "^2.11.0",
+    "dotenv": "^17.4.2",
     "express": "^4.21.2",
     "express-jwt": "^7.7.5",
     "express-jwt-authz": "^2.4.1",

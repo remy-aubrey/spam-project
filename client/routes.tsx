@@ -11,6 +11,7 @@ import RateSpam from './Pages/RateSpam.tsx'
 import Home from './Pages/Home.tsx'
 import ErrorPage from './Pages/ErrorPage.tsx'
 import SpamDetails from './components/RateSpam/SpamDetails.tsx'
+import Gallery from './Pages/Gallery.tsx'
 export const routes = createRoutesFromElements(
   <Route path="/" element={<App />} errorElement={<ErrorPage />}>
     <Route index element={<Home />} />
@@ -19,6 +20,7 @@ export const routes = createRoutesFromElements(
     <Route path="quiz" element={<Quiz />} />
     <Route path="rate-spam/:id" element={<SpamDetails />} />
     <Route path="rate-spam" element={<RateSpam />} />
+    <Route path="gallery" element={<Gallery />} />
   </Route>,
 )
 
